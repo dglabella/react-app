@@ -4,17 +4,18 @@ import MaterialTable from "material-table";
 import columns from "../mock/table-columns";
 import data from "../mock/table-data";
 
-const CustomTable = () => {
-    const [tableColumns, setColumns] = useState(columns);
+const CustomTable = (props) => {
+    const [tableColumns] = useState(columns);
     const [tableData, setData] = useState(data);
 
     return (
         <MaterialTable
-            title="Editable Preview"
+            title={props.title}
             columns={tableColumns}
             data={tableData}
             options={{
-                exportButton: true
+                exportButton: true,
+                sorting: true
             }}
             editable={{
                 onRowAdd: (newData) =>
