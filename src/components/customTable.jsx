@@ -5,51 +5,51 @@ import columns from "../mock/table-columns";
 import data from "../mock/table-data";
 
 const CustomTable = (props) => {
-    const [tableColumns] = useState(columns);
-    const [tableData, setData] = useState(data);
+	const [tableColumns] = useState(columns);
+	const [tableData, setData] = useState(data);
 
-    return (
-        <MaterialTable
-            title={props.title}
-            columns={tableColumns}
-            data={tableData}
-            options={{
-                exportButton: true,
-                sorting: true
-            }}
-            editable={{
-                onRowAdd: (newData) =>
-                    new Promise((resolve, reject) => {
-                        setTimeout(() => {
-                            setData([...tableData, newData]);
-                            resolve();
-                        }, 1000);
-                    }),
-                onRowUpdate: (newData, oldData) =>
-                    new Promise((resolve, reject) => {
-                        setTimeout(() => {
-                            const dataUpdate = [...tableData];
-                            const i = oldData.tableData.id;
-                            dataUpdate[i] = newData;
-                            setData([...dataUpdate]);
+	return (
+		<MaterialTable
+			title={props.title}
+			columns={tableColumns}
+			data={tableData}
+			options={{
+				exportButton: true,
+				sorting: true
+			}}
+			editable={{
+				onRowAdd: (newData) =>
+					new Promise((resolve, reject) => {
+						setTimeout(() => {
+							setData([...tableData, newData]);
+							resolve();
+						}, 1000);
+					}),
+				onRowUpdate: (newData, oldData) =>
+					new Promise((resolve, reject) => {
+						setTimeout(() => {
+							const dataUpdate = [...tableData];
+							const i = oldData.tableData.id;
+							dataUpdate[i] = newData;
+							setData([...dataUpdate]);
 
-                            resolve();
-                        }, 1000);
-                    }),
-                onRowDelete: (oldData) =>
-                    new Promise((resolve, reject) => {
-                        setTimeout(() => {
-                            const dataDelete = [...tableData];
-                            const i = oldData.tableData.id;
-                            dataDelete.splice(i, 1);
-                            setData([...dataDelete]);
+							resolve();
+						}, 1000);
+					}),
+				onRowDelete: (oldData) =>
+					new Promise((resolve, reject) => {
+						setTimeout(() => {
+							const dataDelete = [...tableData];
+							const i = oldData.tableData.id;
+							dataDelete.splice(i, 1);
+							setData([...dataDelete]);
 
-                            resolve();
-                        }, 1000);
-                    })
-            }}
-        />
-    );
+							resolve();
+						}, 1000);
+					})
+			}}
+		/>
+	);
 };
 
 export default CustomTable;
